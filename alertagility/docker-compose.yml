@@ -1,67 +1,70 @@
 version: "3.9"
 
 services:
-        escalation:
-                image: ghcr.io/pixelvirt/escalation:latest
-                restart: always
-                depends_on:
-                       - rabbitmq
-                extra_hosts:
-                        - "mongoservice:172.17.0.1"
-                environment:
-                        MONGOURL: "mongoservice:27018"
-                        RABBITURL: "amqp://alertagility:vcW41MPUlM54uw@rabbitmq:5673/alertagility"
+  escalation:
+    image: ghcr.io/pixelvirt/escalation:latest
+    restart: always
+    depends_on:
+      - rabbitmq
+    extra_hosts:
+      - "mongoservice:172.17.0.1"
+      - "rabbitmqservice:172.17.0.1"
+    environment:
+      MONGOURL: "mongoservice:27018"
+      RABBITURL: "amqp://alertagility:vcW41MPUlM54uw@rabbitmqservice:5673/alertagility"
 
-        finEscalation:
-                image: ghcr.io/pixelvirt/findescalation:latest
-                restart: always
-                depends_on:
-                       - rabbitmq
-                extra_hosts:
-                        - "mongoservice:172.17.0.1"
-                environment:
-                        MONGOURL: "mongoservice:27018"
-                        RABBITURL: "amqp://alertagility:vcW41MPUlM54uw@rabbitmq:5673/alertagility"
+  finEscalation:
+    image: ghcr.io/pixelvirt/findescalation:latest
+    restart: always
+    depends_on:
+      - rabbitmq
+    extra_hosts:
+      - "mongoservice:172.17.0.1"
+      - "rabbitmqservice:172.17.0.1"
+    environment:
+      MONGOURL: "mongoservice:27018"
+      RABBITURL: "amqp://alertagility:vcW41MPUlM54uw@rabbitmqservice:5673/alertagility"
 
-        #notifyEscalation:
-        #        image: notifyescalation:latest
-        #        restart: always
-        alertagility:
-                image: ghcr.io/pixelvirt/alertagility:latest
-                restart: always
-                ports:
-                        - "9090:9090"
-                depends_on:
-                        - rabbitmq
-                extra_hosts:
-                        - "mongoservice:172.17.0.1"
-                environment:
-                        MONGOURL: "mongoservice:27018"
-                        DOMAIN: "test.inithive.com"
-                        RABBITURL: "amqp://alertagility:vcW41MPUlM54uw@rabbitmq:5673/alertagility"
-        rabbitmq:
-                image: ghcr.io/pixelvirt/inithive-rabbitmq:latest
-                restart: always
-                ports:
-                        - "5673:5672"
-                environment:
-                        - RABBITMQ_PASSWORD=vcW41MPUlM54uw
-                        - RABBITMQ_USER=alertagility
-                        
-        mongodb:
-                image: mongo:5
-                ports:
-                         - "27018:27017"
-                volumes:
-                         - ./data:/data/db
-               #environment:
-               # - MONGO_INITDB_ROOT_USERNAME=root
-               #- MONGO_INITDB_ROOT_PASSWORD=example
-        alert-frontend:
-                image: ghcr.io/pixelvirt/alertagility-frontend:latest
-                restart: always
-                ports:
-                        - "3000:3000"
-                environment:
-                        - REACT_APP_API_PROXY_MAIN=alertagility:9090 
-                        - REACT_APP_API_PROXY_REPORT=test.inithive.com:9191  
+  #notifyEscalation:
+  #        image: notifyescalation:latest
+  #        restart: always
+  alertagility:
+    image: ghcr.io/pixelvirt/alertagility:latest
+    restart: always
+    ports:
+      - "9090:9090"
+    depends_on:
+      - rabbitmq
+    extra_hosts:
+      - "mongoservice:172.17.0.1"
+      - "rabbitmqservice:172.17.0.1"
+    environment:
+      MONGOURL: "mongoservice:27018"
+      DOMAIN: "automation.prabhubank-poc.com"
+      RABBITURL: "amqp://alertagility:vcW41MPUlM54uw@rabbitmqservice:5673/alertagility"
+  rabbitmq:
+    image: ghcr.io/pixelvirt/inithive-rabbitmq:latest
+    restart: always
+    ports:
+      - "5673:5672"
+    environment:
+      - RABBITMQ_PASSWORD=vcW41MPUlM54uw
+      - RABBITMQ_USER=alertagility
+
+  mongodb:
+    image: mongo:5
+    ports:
+      - "27018:27017"
+    volumes:
+      - ./data:/data/db
+  #environment:
+  # - MONGO_INITDB_ROOT_USERNAME=root
+  #- MONGO_INITDB_ROOT_PASSWORD=example
+  alert-frontend:
+    image: ghcr.io/pixelvirt/alertagility-frontend:latest
+    restart: always
+    ports:
+      - "80:80"
+    environment:
+      - REACT_APP_API_PROXY_MAIN=alertagility:9090
+      - REACT_APP_API_PROXY_REPORT=test.inithive.com:9191
