@@ -1,1 +1,13 @@
-# containers
+# Install Info
+docker compose up
+
+# Mongo DB Insert
+Exec into the mongodb container.
+
+Then create one account and one admin user for the install.
+
+$ mongosh
+$ use alertagility;
+$ db.accounts.insertOne({"uuid" : "47297812-6f41-47b0-857f-27291b2ff794", "organization" : "Prabhu Bank", "subdomain" : "automation", "status" : "active", "deleted" : 0, "createdat" : ISODate("2022-01-01T13:33:55.715Z"), "updatedat" : ISODate("2022-01-01T13:33:55.715Z"), "primaryuser" : { "fullname" : "Prabhu Bank", "firstname" : "Prabhu", "lastname" : "Bank", "email" : "monitoring@prabhubank.com", "phone" : "", "deleted" : 0, "username" : "admin", "password" : "$2a$10$m1TdKWtwBi8qvBGiqMbzWula0DYpD6F0ljKkDgF0LjVwkskSb4kEq", "role_id" : 1, "status_id" : 1, "csscolor" : "", "subdomain" : "automation", "admin" : true, "primary_user" : true, "api_key" : "", "reset_token" : "", "work_days" : {  }, "work_schedule" : { "monday" : { "shiftstarttime" : 0, "shiftendtime" : 0 }, "tuesday" : { "shiftstarttime" : 0, "shiftendtime" : 0 }, "wednesday" : { "shiftstarttime" : 0, "shiftendtime" : 0 }, "thursday" : { "shiftstarttime" : 0, "shiftendtime" : 0 }, "friday" : { "shiftstarttime" : 0, "shiftendtime" : 0 }, "saturday" : { "shiftstarttime" : 0, "shiftendtime" : 0 }, "sunday" : { "shiftstarttime" : 0, "shiftendtime" : 0 } }, "notify_methods" : [ ], "notification_option" : "", "tour_shown" : false, "bot_ip" : "", "bot_port" : "" }, "billingplan" : "Trial", "billingcustomerid" : "" })
+
+$ db.users.insertOne({"fullname" : "Bank IT", "firstname" : "Prabhu", "lastname" : "Bank", "email" : "monitoring@prabhubank.com", "phone" : "", "deleted" : 0, "username" : "monitoring@prabhubank.com", "password" : "$2a$10$m1TdKWtwBi8qvBGiqMbzWula0DYpD6F0ljKkDgF0LjVwkskSb4kEq", "role_id" : 1, "status_id" : 1, "csscolor" : "#7874ed", "subdomain" : "automation", "admin" : true, "primary_user" : true, "api_key" : "51f5d47b-dfd2-40ad-b6c1-2e2f481f20a6", "reset_token" : "", "account_uuid" : "47297812-6f41-47b0-857f-27291b2ff794", "work_days" : {  }, "work_schedule" : { "monday" : { "shiftstarttime" : 0, "shiftendtime" : 0 }, "tuesday" : { "shiftstarttime" : 0, "shiftendtime" : 0 }, "wednesday" : { "shiftstarttime" : 0, "shiftendtime" : 0 }, "thursday" : { "shiftstarttime" : 0, "shiftendtime" : 0 }, "friday" : { "shiftstarttime" : 0, "shiftendtime" : 0 }, "saturday" : { "shiftstarttime" : 0, "shiftendtime" : 0 }, "sunday" : { "shiftstarttime" : 0, "shiftendtime" : 0 } }, "notify_methods" : [ ], "notification_option" : "email", "tour_shown" : false, "bot_ip" : "", "bot_port" : "", "bot_auth_token" : "", "call_language" : "" })
