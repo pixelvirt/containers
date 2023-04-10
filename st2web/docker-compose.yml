@@ -1,81 +1,3 @@
-version: "3.9"
-
-services:
-        escalation:
-                image: ghcr.io/pixelvirt/escalation:latest
-                restart: always
-                depends_on:
-                       - rabbitmq
-                extra_hosts:
-                        - "mongoservice:172.17.0.1"
-                environment:
-                        MONGOURL: "mongoservice:27018"
-                        RABBITURL: "amqp://alertagility:vcW41MPUlM54uw@rabbitmq:5673/alertagility"
-
-        finEscalation:
-                image: ghcr.io/pixelvirt/findescalation:latest
-                restart: always
-                depends_on:
-                       - rabbitmq
-                extra_hosts:
-                        - "mongoservice:172.17.0.1"
-                environment:
-                        MONGOURL: "mongoservice:27018"
-                        RABBITURL: "amqp://alertagility:vcW41MPUlM54uw@rabbitmq:5673/alertagility"
-
-        #notifyEscalation:
-        #        image: notifyescalation:latest
-        #        restart: always
-        alertagility:
-                image: ghcr.io/pixelvirt/alertagility:latest
-                restart: always
-                ports:
-                        - "9090:9090"
-                depends_on:
-                        - rabbitmq
-                extra_hosts:
-                        - "mongoservice:172.17.0.1"
-                environment:
-                        MONGOURL: "mongoservice:27018"
-                        DOMAIN: "test.inithive.com"
-                        RABBITURL: "amqp://alertagility:vcW41MPUlM54uw@rabbitmq:5673/alertagility"
-        rabbitmq:
-                image: ghcr.io/pixelvirt/inithive-rabbitmq:latest
-                restart: always
-                ports:
-                        - "5673:5672"
-                environment:
-                        - RABBITMQ_PASSWORD=vcW41MPUlM54uw
-                        - RABBITMQ_USER=alertagility
-                        
-        mongodb:
-                image: mongo:5
-                ports:
-                         - "27018:27017"
-                volumes:
-                         - ./data:/data/db
-               #environment:
-               # - MONGO_INITDB_ROOT_USERNAME=root
-               #- MONGO_INITDB_ROOT_PASSWORD=example
-        alert-frontend:
-                image: ghcr.io/pixelvirt/alertagility-frontend:latest
-                restart: always
-                ports:
-                        - "3000:3000"
-                environment:
-                        - REACT_APP_API_PROXY_MAIN=alertagility:9090 
-                        - REACT_APP_API_PROXY_REPORT=test.inithive.com:9191  
-root@alert:~/alertagility# ls 
-data  docker-compose.yml
-root@alert:~/alertagility# cd ..
-root@alert:~# ls 
-alertagility  snap  st2-docker  zabbix-release_6.4-1+ubuntu20.04_all.deb  zabbix-release_6.4-1+ubuntu22.04_all.deb
-root@alert:~# cd s
-snap/       st2-docker/ 
-root@alert:~# cd st2-docker/
-root@alert:~/st2-docker# ls 
-CHANGELOG.md  docker-compose.yml  files  LICENSE  packs.dev  README.md  scripts  tests
-root@alert:~/st2-docker# cat docker-compose.yml 
 version: '3'
 
 services:
@@ -102,7 +24,7 @@ services:
       # uncomment the line below
       #- ./files/config.js:/opt/stackstorm/static/webui/config.js:ro
     ports:
-      - "${ST2_EXPOSE_HTTP:-0.0.0.0:8081}:80"
+      - "${ST2_EXPOSE_HTTP:-0.0.0.0:8082}:80"
       # - "${ST2_EXPOSE_HTTPS:-127.0.0.1:443}:443"
       # more work would be needed with certificate generate to make https work.
     networks:
