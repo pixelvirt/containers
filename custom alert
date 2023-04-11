@@ -1,0 +1,15 @@
+Save AlertAgility.py 
+usr/local/share/zabbix/alertscripts/
+
+Make sure the custom alert script is executable. You can do this by running the following command:
+sudo chmod +x /usr/lib/zabbix/alertscripts/alertAgility.py
+
+sets the ownership and group ownership of the alert script to the "zabbix" user.
+sudo chown zabbix:zabbix /usr/lib/zabbix/alertscripts/alertAgility.py
+
+Make sure the value of the "AlertScriptsPath" parameter is set to "/usr/lib/zabbix/alertscripts/"
+grep AlertScriptsPath /etc/zabbix/zabbix_server.conf
+
+Restart the Zabbix server process to apply the changes:
+sudo systemctl restart zabbix-server
+
