@@ -13,3 +13,23 @@ grep AlertScriptsPath /etc/zabbix/zabbix_server.conf
 Restart the Zabbix server process to apply the changes:
 sudo systemctl restart zabbix-server
 
+Script parameters
+{ALERT.SENDTO}
+{ALERT.MESSAGE}
+{ALERT.SUBJECT}
+key 
+
+
+
+Message template
+subject Problem: {EVENT.NAME}
+
+name:{TRIGGER.NAME}
+status:{TRIGGER.STATUS}
+hostname:{HOSTNAME}
+ip:{IPADDRESS}
+value:{TRIGGER.VALUE}
+event_id:{EVENT.ID}
+severity:{TRIGGER.SEVERITY}
+
+
