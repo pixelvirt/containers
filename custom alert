@@ -1,5 +1,5 @@
 Save AlertAgility.py 
-usr/local/share/zabbix/alertscripts/
+/usr/lib/zabbix/alertscripts/
 
 Make sure the custom alert script is executable. You can do this by running the following command:
 sudo chmod +x /usr/lib/zabbix/alertscripts/alertAgility.py
