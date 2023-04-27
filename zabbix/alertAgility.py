@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-# put this file in usr/lib/zabbix/alertscripts/
+# put this file in /usr/lib/zabbix/alertscripts/
 
 import requests
 import sys
