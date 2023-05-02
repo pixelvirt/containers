@@ -71,5 +71,4 @@ services:
       - DOLLAR=$$
       - ALERTAGILITY_API=alertagility:9090
       - ALERTAGILITY_REPORT=alertagility:9191
-      - STACKSTORM=localhost:8000
-                                                                                                                                                                                                                            74,14         Bot
+      - STACKSTORM=localhost:8000 
