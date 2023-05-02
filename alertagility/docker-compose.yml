@@ -40,7 +40,7 @@ services:
       - "rabbitmqservice:172.17.0.1"
     environment:
       MONGOURL: "mongoservice:27018"
-      DOMAIN: "automation.prabhubank-poc.com"
+      DOMAIN: "automation.inithive.com"
       RABBITURL: "amqp://alertagility:vcW41MPUlM54uw@rabbitmqservice:5673/alertagility"
   rabbitmq:
     image: ghcr.io/pixelvirt/inithive-rabbitmq:latest
@@ -63,8 +63,13 @@ services:
   alert-frontend:
     image: ghcr.io/pixelvirt/alertagility-frontend:latest
     restart: always
+    depends_on:
+      - alertagility
     ports:
       - "80:80"
     environment:
-      - REACT_APP_API_PROXY_MAIN=alertagility:9090
-      - REACT_APP_API_PROXY_REPORT=test.inithive.com:9191
+      - DOLLAR=$$
+      - ALERTAGILITY_API=alertagility:9090
+      - ALERTAGILITY_REPORT=alertagility:9191
+      - STACKSTORM=localhost:8000
+                                                                                                                                                                                                                            74,14         Bot
