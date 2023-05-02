@@ -21,15 +21,24 @@ key
 
 
 
-Message template
-subject Problem: {EVENT.NAME}
-
-name:{TRIGGER.NAME}
-status:{TRIGGER.STATUS}
-hostname:{HOSTNAME}
-ip:{IPADDRESS}
-value:{TRIGGER.VALUE}
+Message template(on media types)
+PROBLEM:
+status:{EVENT.STATUS}
+service_name:{EVENT.NAME}
+hostname:{HOST.NAME}
+host_id:{HOST.ID}
+severity:{EVENT.SEVERITY}
 event_id:{EVENT.ID}
-severity:{TRIGGER.SEVERITY}
+event_opsdata:{EVENT.OPDATA}
+event_tags:{EVENT.REVOVERY.TAGS}
 
+PROBLEM RECOVERY:
+status:{EVENT.STATUS}
+service_name:{EVENT.NAME}
+hostname:{HOST.NAME}
+host_id:{HOST.ID}
+severity:{EVENT.SEVERITY}
+event_id:{EVENT.ID}
+event_opsdata:{EVENT.OPDATA}
+event_tags:{EVENT.REVOVERY.TAGS}
 
