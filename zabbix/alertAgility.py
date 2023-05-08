@@ -22,11 +22,12 @@ log.addHandler(handler)
 def main(askey, subject, body, key):
     reqbody = {}
     itemLists = body.splitlines()
-    for i in itemLists:
-        reqbody[i.split(":")[0]] = i.split(":")[1]
-
+     for i in itemLists:
+        k = i.split(":")[0].strip()
+        v = i.split(":")[1].strip()
+        reqbody[k] = v
+        
     headers = {'X-Auth-Key': key}
-
     resp = requests.post(URL, headers=headers, data=json.dumps(reqbody))
     if resp.status_code != 200:
         print(resp.text)
