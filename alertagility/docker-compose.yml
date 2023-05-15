@@ -42,6 +42,7 @@ services:
       MONGOURL: "mongoservice:27018"
       DOMAIN: "automation.inithive.com"
       RABBITURL: "amqp://alertagility:vcW41MPUlM54uw@rabbitmqservice:5673/alertagility"
+      AUTOMATIONURL: "https://162.242.209.130"
   rabbitmq:
     image: ghcr.io/pixelvirt/inithive-rabbitmq:latest
     restart: always
